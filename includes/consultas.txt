@@ -1,0 +1,62 @@
+CREATE TABLE paciente (
+    id SERIAL PRIMARY KEY,
+    dni int NULL,
+    nombre VARCHAR(100) NOT NULL,
+    edad INT NULL
+);
+
+CREATE TABLE servicios (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    total_camas INT NOT NULL
+);
+
+CREATE TABLE subservicios (
+	id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    num_cama VARCHAR(8) NOT NULL,
+    estado VARCHAR(10) DEFAULT 'Desocupada' NOT NULL,
+    id_servicio INT REFERENCES servicios(id)
+);
+
+CREATE TABLE ingresos(
+	id SERIAL PRIMARY KEY,
+    fecha_ingreso DATE NOT NULL,
+    observacion VARCHAR(20) NULL,
+    id_paciente INT REFERENCES paciente(id),
+    id_subservicio INT REFERENCES subservicios(id)
+);
+
+CREATE TABLE egresos(
+	id SERIAL PRIMARY KEY,
+    fecha_egreso DATE NOT NULL,
+    observacion VARCHAR(20) NULL,
+    id_paciente INT REFERENCES paciente(id),
+    id_subservicio INT REFERENCES subservicios(id)
+);
+
+
+INSERT INTO servicios (nombre, total_camas) 
+VALUES
+	(Pediatria, 37),
+    (Ginocologia y Obstetricia, 51),
+    (Cirugia, 55),
+    (Medicina, 50),
+    (Emergencia, 28),
+    (UCI, 21);
+
+ALTER TABLE paciente AUTO_INCREMENT = 1 ---> Reniciar valor autoincrementable
+
+
+INSERT INTO subservicios (nombre, num_cama, estado, id_servicio) 
+VALUES 
+	('Obs. Mujeres', 'O.M-1', DEFAULT, 5),
+    ('Obs. Mujeres', 'O.M-2', DEFAULT, 5),
+    ('Obs. Mujeres', 'O.M-3', DEFAULT, 5),
+    ('Obs. Mujeres', 'O.M-4', DEFAULT, 5),
+    ('Obs. Mujeres', 'O.M-5', DEFAULT, 5),
+    ('Obs. Mujeres', 'O.M-6', DEFAULT, 5);
+
+
+DELETE FROM subservicios WHERE id > 40  -------> Eliminar datos
+UPDATE subservicios SET id_servicio = 2 WHERE nombre = 'Aro A' ----> Actulizar datos
