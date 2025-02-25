@@ -8,6 +8,9 @@
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
         crossorigin="anonymous"></script>
     <script src="../js/script.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+        rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+        crossorigin="anonymous">
 </head>
 <body>
     <h1>Gestión de Ingresos</h1>
@@ -26,23 +29,13 @@
     ?>
 
     <form method="post">
-        Fecha Ingreso: <input type="date" id="fecha_ingreso" required>
-        Paciente: <input type="serach" id="paciente" require>
-                <?php
-                include '../includes/db.php';
-                    if (!empty($_POST['id_paciente'])) {
-                        # code...
-                        $pacienteId = $_POST['id_paciente']; // Obtiene el ID del paciente escrito
-                        $paciente = $conn->query("SELECT * FROM paciente WHERE nombre LIKE '$pacienteId%'");
-            
-                        foreach ($paciente as $paciente) {
-                            echo "<option value='{$paciente['id']}'>{$paciente['nombre']}</option>";
-                            }
-                    }
-                ?>
+        Fecha Ingreso: <input type="date" id="fecha_ingreso" name="fecha_ingreso" required>
+        Paciente: <input type="serach" id="paciente_ingreso" name="id_paciente" require>
+                
+                
         Servicio: 
             <select id="servicio" require>
-                <option value="">Selecionar Servicio</option>
+                <option value="">Seleccione Servicio</option>
                 <?php
                 include '../includes/db.php';
                     $servicios = $conn->query("SELECT * FROM servicios");
@@ -52,37 +45,15 @@
                 ?>
             </select>
         Sub Servicio: 
-            <select id="subservicio" require>
-                <option value="">Seleccione Subservicio</option>
-                <?php
-                include '../includes/db.php';
-                    if (isset($_POST['servicio_id'])) {
-                        # code...
-                        $servicioId = $_POST['servicio_id']; // Obtiene el ID del servicio seleccionado
-                        $subservicios = $conn->query("SELECT * FROM subservicios WHERE id_servicio = $servicioId 
-                                                    AND estado = 'Desocupada' GROUP BY nombre");
-            
-                        $options = '<option value="">Seleccione Subservicio</option>';
-                        foreach ($subservicios as $subservicios) {
-                            $options .= "<option value='{$subservicios['id']}'>{$subservicios['nombre']}</option>";
-                        }
-                        echo $options;
-                    }
-                ?>
+            <select id="subservicio" name="id_subservicio" require>
+                <option value="">Seleccione Subservicio</option>    
             </select>
         Cama: 
             <select id="id_cama" require>
-                <?php
-                include '../includes/db.php';
-                    $cama = $conn->query("SELECT * FROM subservicios WHERE id_servicio = 1 AND id = 1 
-                                        AND estado = 'Desocupada'");
-                    foreach ($cama as $cama) {
-                        echo "<option value='{$cama['id']}'>{$cama['num_cama']}</option>";
-                    }
-                ?>
+                <option value="">Seleccione Cama</option>
             </select>
         Observacion: <input type="text" name="observacion">
-        <input class="btn btn-primary" type="submit" value="Registrar Ingreso">
+        <input class="btn btn-primary" type="submit" id='reg_paciente' value="Registrar Ingreso">
     </form>
 
 </body>

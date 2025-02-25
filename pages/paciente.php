@@ -42,14 +42,20 @@
                     <th>DNI</th>
                     <th>Nombre</th>
                     <th>Edad</th>
+                    <th>Acciones</th>
                 </tr>";
             //Recorrer los resultados y mostrarlos en la tabla
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 # code...
                 echo "<tr>
-                        <th>".$row["dni"]."</th>
-                        <th>".$row["nombre"]."</th>
-                        <th>".$row["edad"]."</th>
+                        <td>".$row["dni"]."</td>
+                        <td>".$row["nombre"]."</td>
+                        <td>".$row["edad"]."</td>
+                        <td>
+                            <form action='../js/eliminar_paciente.php' method='POST' style='display:inline;'>
+                            <input type='hidden' name='nombre' value='".$row["nombre"]."'>
+                            <button class='btn btn-danger' type='submit' onclick='return confirm(¿Estás seguro de eliminar este paciente?);'>Eliminar</button>
+                        </td>
                     </tr>";
             }
             echo "</table>";
