@@ -1,19 +1,20 @@
 <?php
-    include '../includes/db.php';
-        if (!empty($_POST['nombre'])) {
-            # code...
-            $pacienteNom = $conn->prepare($_POST['nombre']);
+include '../includes/db.php';
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $nombre = $_POST['nombre'];
 
-            $pacienteEli = $conn->query("DELETE FROM paciente WHERE nombre LIKE '$pacienteNom%'");
-    
-            if ($pacienteEli == TRUE) {
-                # code...
-                echo "Paciente eliminado correctamente";
-            } else {
-                echo "Error al eliminar el paciente";
-            }
+        // Preparar la consulta SQL para eliminar el paciente
+        $stmt = $conn->prepare("DELETE FROM paciente WHERE nombre = :nombre");
+        $stmt->bindParam(':nombre', $nombre);
+
+        if ($stmt->execute()) {
+            echo "Paciente eliminado correctamente.";
+        } else {
+            echo "Error al eliminar el paciente.";
         }
-        
-    header("Location: ../pages/paciente.php");
-    exit();
+
+        // Redirigir de vuelta a la página principal
+        header("Location: ../pages/paciente.php");
+        exit();
+    }
 ?>

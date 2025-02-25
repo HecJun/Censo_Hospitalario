@@ -4,9 +4,17 @@
             # code...
             $pacienteId = $_POST['paciente_id']; // Obtiene el nombre del paciente escrito
             $paciente = $conn->query("SELECT * FROM paciente WHERE nombre LIKE '$pacienteId%'");
-    
-            foreach ($paciente as $paciente) {
-                echo "<option value='{$paciente['id']}'>{$paciente['nombre']}</option>";
-                }
+
+            $json = array();
+            while ($row = mysqli_fetch_array($paciente)) {
+                # code...
+                $json[] = array(
+                    'dni' => $row['dni'],
+                    'nombre' => $row['nombre'],
+                    'edad' => $row['edad']
+                );
+            }
+            $jsonString = json_encode($json);
+            echo $jsonString;
         }
 ?>

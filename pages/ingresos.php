@@ -30,9 +30,10 @@
 
     <form method="post">
         Fecha Ingreso: <input type="date" id="fecha_ingreso" name="fecha_ingreso" required>
-        Paciente: <input type="serach" id="paciente_ingreso" name="id_paciente" require>
-                
-                
+        Paciente: <input type="serach" list="datalistOptions" id="paciente_ingreso" name="id_paciente" require>
+                    <datalist id="datalistOptions">
+                    </datalist>
+                         
         Servicio: 
             <select id="servicio" require>
                 <option value="">Seleccione Servicio</option>

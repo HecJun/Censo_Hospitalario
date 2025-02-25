@@ -53,8 +53,10 @@
                         <td>".$row["edad"]."</td>
                         <td>
                             <form action='../js/eliminar_paciente.php' method='POST' style='display:inline;'>
-                            <input type='hidden' name='nombre' value='".$row["nombre"]."'>
-                            <button class='btn btn-danger' type='submit' onclick='return confirm(¿Estás seguro de eliminar este paciente?);'>Eliminar</button>
+                                <input type='hidden' name='nombre' value='".htmlspecialchars($row["nombre"])."'>
+                                <button class='btn btn-danger' type='submit' 
+                                onclick='return confirm(\"¿Estás seguro de eliminar este paciente?\");'>Eliminar</button>
+                            </form>
                         </td>
                     </tr>";
             }

@@ -44,7 +44,7 @@ $(document).ready(function() {
         var pacienteId = $('#paciente_egreso').val();
 
         $.ajax({
-            url: '**/js/buscar_paciente.php',
+            url: '../js/buscar_paciente.php',
             type: 'POST',
             data: { paciente_id: pacienteId },
             success: function(response) {
@@ -59,11 +59,12 @@ $(document).ready(function() {
         var pacienteId = $('#paciente_ingreso').val();
 
         $.ajax({
-            url: '**/js/buscar_paciente.php',
+            url: '../js/buscar_paciente.php',
             type: 'POST',
             data: { paciente_id: pacienteId },
             success: function(response) {
-                $('#paciente_ingreso').html(response);
+                console.log(response);
+                
             },
         });
 
