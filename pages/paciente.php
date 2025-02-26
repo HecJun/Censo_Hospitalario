@@ -33,7 +33,10 @@
 
     <?php
     include '../includes/db.php';
-        $result = $conn->query("SELECT * FROM paciente ORDER BY id DESC");   
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1 ;
+        $perPage = 12;
+        $oFfset = ($page - 1) *$perPage;
+        $result = $conn->query("SELECT * FROM paciente ORDER BY id DESC LIMIT $perPage OFFSET $oFfset");   
         if ($result->rowCount() > 0) {
             # code...
             //Mostrar datos en una tabla HTML
@@ -61,6 +64,16 @@
                     </tr>";
             }
             echo "</table>";
+
+            //Enlaces de paginacion
+            $totalRows = $conn->query("SELECT COUNT(*) FROM paciente")->fetchColumn();
+            $totalPages = ceil($totalRows/$perPage);
+            echo "<div class='paginacion'>";
+            for ($i=1; $i<=$totalPages  ; $i++) { 
+                # code...
+                echo "<a href='?page=$i'>$i</a>";
+            }
+            echo"</div>";
         } else {
             echo "0 Resultados";
             }

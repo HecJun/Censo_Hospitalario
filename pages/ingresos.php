@@ -30,9 +30,8 @@
 
     <form method="post">
         Fecha Ingreso: <input type="date" id="fecha_ingreso" name="fecha_ingreso" required>
-        Paciente: <input type="serach" list="datalistOptions" id="paciente_ingreso" name="id_paciente" require>
-                    <datalist id="datalistOptions">
-                    </datalist>
+        Paciente: <input type="text" list="datalistOptions" id="paciente_ingreso" name="id_paciente" autocomplete="off" require>
+                    <datalist id="datalistOptions"></datalist>
                          
         Servicio: 
             <select id="servicio" require>
@@ -54,7 +53,7 @@
                 <option value="">Seleccione Cama</option>
             </select>
         Observacion: <input type="text" name="observacion">
-        <input class="btn btn-primary" type="submit" id='reg_paciente' value="Registrar Ingreso">
+        <input class="btn btn-primary" type="submit" id='reg_ingreso' value="Registrar Ingreso">
     </form>
 
 </body>

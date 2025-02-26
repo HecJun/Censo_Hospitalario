@@ -5,16 +5,18 @@
             $pacienteId = $_POST['paciente_id']; // Obtiene el nombre del paciente escrito
             $paciente = $conn->query("SELECT * FROM paciente WHERE nombre LIKE '$pacienteId%'");
 
-            $json = array();
-            while ($row = mysqli_fetch_array($paciente)) {
+            $opciones = array();
+            while ($row = $paciente->fetch(PDO::FETCH_ASSOC)) {
                 # code...
-                $json[] = array(
-                    'dni' => $row['dni'],
+                $opciones[] = array(
+                    //'dni' => $row['dni'],
                     'nombre' => $row['nombre'],
-                    'edad' => $row['edad']
+                    //'edad' => $row['edad']
                 );
             }
-            $jsonString = json_encode($json);
+            $jsonString = json_encode($opciones);
             echo $jsonString;
+        } else {
+            echo json_encode([]); // Devuelve un array vacío si no hay resultados
         }
 ?>

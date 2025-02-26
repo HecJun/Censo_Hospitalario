@@ -7,6 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
         rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
         crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+        crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
 </head>
 <body>
     <h1>Gestión de Egresos</h1>
@@ -29,13 +33,28 @@
 
         Paciente: <input type="serach" id="paciente_egreso" require>
 
-        Sub Servicio: <input type="text" id="servicio" readonly require>
-
-        Sub Servicio: <input type="text" id="subservicio" readonly require>
-
+        Servicio: 
+            <select id="servicio_egreso" require>
+                <option value="">Seleccione Servicio</option>
+                <?php
+                include '../includes/db.php';
+                    $servicios = $conn->query("SELECT * FROM servicios");
+                    foreach ($servicios as $servicios) {
+                        echo "<option value='{$servicios['id']}'>{$servicios['nombre']}</option>";
+                    }
+                ?>
+            </select>
+        Sub Servicio: 
+            <select id="subservicio_egreso" name="id_subservicio" require>
+                <option value="">Seleccione Subservicio</option>    
+            </select>
+        Cama: 
+            <select id="id_cama_egreso" require>
+                <option value="">Seleccione Cama</option>
+            </select>
         Observacion: <input type="text" name="observacion">
         
-        <input type="submit" value="Registrar Egreso">
+        <input class="btn btn-primary" type="submit" id='reg_ingreso' value="Registrar Egreso">
     </form>
 </body>
 </html>
