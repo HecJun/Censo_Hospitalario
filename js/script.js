@@ -36,7 +36,7 @@ $(document).ready(function() {
             });
         } else {
             $('#id_cama').html('<option value="">Seleccione Cama</option');
-        }
+            }
     });
 
  //
@@ -79,41 +79,67 @@ $(document).ready(function() {
     $('#paciente_ingreso').keyup(function(){
         var pacienteId = $('#paciente_ingreso').val();
 
-        $.ajax({
-            url: '../js/buscar_paciente.php',
-            method: 'POST',
-            data: { paciente_id: pacienteId },
-            success: function(response) {  
-                var pacientes = JSON.parse(response);
-                //console.log(pacientes);
-                var datalist = $('#datalistOptions');
-                datalist.empty(); // Limpia las opciones anteriores
-                pacientes.forEach(function(paciente) {
-                    datalist.append('<option value="' + paciente.nombre + '">');
-                });
-            },
-        });
+        if (query.length >= 2) { // Solo busca si se han escrito 2 o más caracteres
+            $.ajax({
+                url: '../js/buscar_paciente.php',
+                method: 'POST',
+                data: { paciente_id: pacienteId },
+                success: function(response) {  
+                    var pacientes = JSON.parse(response);
+                    //console.log(pacientes);
+                    var datalist = $('#datalistOptions');
+                    datalist.empty(); // Limpia las opciones anteriores
+                    pacientes.forEach(function(paciente) {
+                        datalist.append('<option value="' + paciente.nombre + '" data-id="' + paciente.id + '">');
+                    });
+                },
+            });
+        } else {
+            $('#datalistOptions').empty();// Limpia el datalist si la búsqueda es muy corta
+            }
     });
 
+// Cuando se selecciona una opción del datalist, actualiza el campo oculto con el ID del paciente
+    $('#paciente_ingreso').on('input', function() {
+        var selectedOption = $('#datalistOptions option[value="' + $(this).val() + '"]');
+        if (selectedOption.length > 0) {
+            $('#id_paciente').val(selectedOption.data('id'));
+        } else {
+            $('#id_paciente').val(''); // Limpia el campo si no hay coincidencia
+            }
+    });
+   
 
     $('#paciente_egreso').keyup(function(){
         var pacienteId = $('#paciente_egreso').val();
 
-        $.ajax({
-            url: '../js/buscar_paciente.php',
-            method: 'POST',
-            data: { paciente_id: pacienteId },
-            success: function(response) {  
-                var pacientes = JSON.parse(response);
-                var datalist = $('#datalistOptions');
-                datalist.empty(); // Limpia las opciones anteriores
-                pacientes.forEach(function(paciente) {
-                    datalist.append('<option value="' + paciente.nombre + '">');
-                });
-            },
-        });
+        if (query.length >= 2) {
+            $.ajax({
+                url: '../js/buscar_paciente.php',
+                method: 'POST',
+                data: { paciente_id: pacienteId },
+                success: function(response) {  
+                    var pacientes = JSON.parse(response);
+                    var datalist = $('#datalistOptions');
+                    datalist.empty(); // Limpia las opciones anteriores
+                    pacientes.forEach(function(paciente) {
+                        datalist.append('<option value="' + paciente.nombre + '" data-id="' + paciente.id + '">');
+                    });
+                },
+            });
+        } else {
+            $('#datalistOptions').empty();// Limpia el datalist si la búsqueda es muy corta
+            }
     });
 
 
+    $('#paciente_egreso').on('input', function() {
+        var selectedOption = $('#datalistOptions option[value="' + $(this).val() + '"]');
+        if (selectedOption.length > 0) {
+            $('#id_paciente').val(selectedOption.data('id'));
+        } else {
+            $('#id_paciente').val(''); 
+            }
+    });
 
 });

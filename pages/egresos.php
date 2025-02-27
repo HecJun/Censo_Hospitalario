@@ -34,8 +34,9 @@
     <form method="post">
     Fecha Engreso: <input type="date" id="fecha_egreso" name="fecha_egreso" required>
         
-        Paciente: <input type="text" list="datalistOptions" id="paciente_egreso" name="id_paciente" autocomplete="off" require>
+        Paciente: <input type="text" list="datalistOptions" id="paciente_egreso" name="paciente_nombre" autocomplete="off" require>
                     <datalist id="datalistOptions"></datalist>
+                    <input type="hidden" id="id_paciente" name="id_paciente">
                          
         Servicio: 
             <select id="servicio_egreso" require>
