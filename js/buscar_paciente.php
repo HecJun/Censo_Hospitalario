@@ -9,8 +9,9 @@
             while ($row = $paciente->fetch(PDO::FETCH_ASSOC)) {
                 # code...
                 $opciones[] = array(
+                    'id' => $row['id'],
                     //'dni' => $row['dni'],
-                    'nombre' => $row['nombre'],
+                    'nombre' => $row['nombre']
                     //'edad' => $row['edad']
                 );
             }

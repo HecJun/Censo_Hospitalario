@@ -34,7 +34,7 @@
     <?php
     include '../includes/db.php';
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1 ;
-        $perPage = 12;
+        $perPage = 10;
         $oFfset = ($page - 1) *$perPage;
         $result = $conn->query("SELECT * FROM paciente ORDER BY id DESC LIMIT $perPage OFFSET $oFfset");   
         if ($result->rowCount() > 0) {

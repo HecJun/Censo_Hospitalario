@@ -39,15 +39,15 @@ $(document).ready(function() {
         }
     });
 
-
+ //
     $('#servicio_egreso').change(function() {
         var subservicioId = $(this).val(); 
 
         if (subservicioId) {
             $.ajax({
-                url: '../js/conseguir_egreso_cama.php',
+                url: '../js/conseguir_egreso_subservicios.php',
                 type: 'POST',
-                data: { subservicio_id: subservicioId }, 
+                data: { servicio_id: subservicioId }, 
                 success: function(response) {
                     $('#subservicio_egreso').html(response);
                 },
@@ -57,7 +57,7 @@ $(document).ready(function() {
         }
     });
 
-
+//
     $('#subservicio_egreso').change(function() {
         var subservicioId = $(this).val(); 
 
@@ -112,7 +112,6 @@ $(document).ready(function() {
                 });
             },
         });
-
     });
 
 

@@ -25,11 +25,15 @@
 
             $stmt = $conn->prepare("INSERT INTO ingresos (fecha_ingreso, observacion, id_paciente, id_subservicio) VALUES (?, ?, ?, ?)");
             $stmt->execute([$fecha_ingreso, $observacion, $id_paciente, $id_subservicio]);
-            }   
+
+            $stmt = $conn->prepare("UPDATE subservicios SET estado = 'Ocupada' WHERE id = ?");
+            $stmt->execute([$id_subservicio]);
+            }
     ?>
 
     <form method="post">
         Fecha Ingreso: <input type="date" id="fecha_ingreso" name="fecha_ingreso" required>
+        
         Paciente: <input type="text" list="datalistOptions" id="paciente_ingreso" name="id_paciente" autocomplete="off" require>
                     <datalist id="datalistOptions"></datalist>
                          
@@ -53,6 +57,7 @@
                 <option value="">Seleccione Cama</option>
             </select>
         Observacion: <input type="text" name="observacion">
+
         <input class="btn btn-primary" type="submit" id='reg_ingreso' value="Registrar Ingreso">
     </form>
 
