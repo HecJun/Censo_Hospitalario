@@ -20,12 +20,18 @@
 
             $stmt = $conn->prepare("INSERT INTO paciente (dni, nombre, edad) VALUES (?, ?, ?)");
             $stmt->execute([$dni, $nombre, $edad]);
-            }   
+
+
+            header('Location: ' . $_SERVER['PHP_SELF']);
+            exit();
+            }
     ?>
 
     <form method="post">
         DNI: <input type="int" name="DNI">
+
         Nombre: <input type="text" name="nombre" required>
+
         Edad: <input type="int" name="edad">
         
         <input class="btn btn-primary" type="submit" value="Registrar Paciente">
@@ -63,7 +69,7 @@
                         </td>
                     </tr>";
             }
-            echo "</table>";
+                echo "</table>";
 
             //Enlaces de paginacion
             $totalRows = $conn->query("SELECT COUNT(*) FROM paciente")->fetchColumn();

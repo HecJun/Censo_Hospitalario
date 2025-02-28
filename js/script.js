@@ -79,14 +79,13 @@ $(document).ready(function() {
     $('#paciente_ingreso').keyup(function(){
         var pacienteId = $('#paciente_ingreso').val();
 
-        if (query.length >= 2) { // Solo busca si se han escrito 2 o más caracteres
+        if (pacienteId.length >= 2) { // Solo busca si se han escrito 2 o más caracteres
             $.ajax({
                 url: '../js/buscar_paciente.php',
                 method: 'POST',
                 data: { paciente_id: pacienteId },
                 success: function(response) {  
                     var pacientes = JSON.parse(response);
-                    //console.log(pacientes);
                     var datalist = $('#datalistOptions');
                     datalist.empty(); // Limpia las opciones anteriores
                     pacientes.forEach(function(paciente) {
@@ -113,7 +112,7 @@ $(document).ready(function() {
     $('#paciente_egreso').keyup(function(){
         var pacienteId = $('#paciente_egreso').val();
 
-        if (query.length >= 2) {
+        if (pacienteId.length >= 2) {
             $.ajax({
                 url: '../js/buscar_paciente.php',
                 method: 'POST',
