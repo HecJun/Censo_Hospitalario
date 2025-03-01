@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-02-2025 a las 21:25:49
+-- Tiempo de generación: 28-02-2025 a las 20:48:00
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -49,6 +49,32 @@ CREATE TABLE `ingresos` (
   `id_subservicio` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `ingresos`
+--
+
+INSERT INTO `ingresos` (`id`, `fecha_ingreso`, `observacion`, `id_paciente`, `id_subservicio`) VALUES
+(1, '2025-01-28', NULL, 1, 1),
+(2, '2025-01-22', NULL, 2, 2),
+(3, '2025-02-01', NULL, 3, 3),
+(4, '2025-01-30', NULL, 4, 4),
+(5, '2025-01-27', NULL, 5, 5),
+(6, '2025-01-27', NULL, 7, 13),
+(7, '2025-01-27', NULL, 8, 14),
+(8, '2025-01-23', NULL, 9, 15),
+(9, '2025-01-28', NULL, 10, 16),
+(10, '2025-01-31', NULL, 11, 17),
+(11, '2025-01-29', NULL, 12, 18),
+(12, '2025-01-30', NULL, 13, 19),
+(13, '2025-01-26', NULL, 14, 20),
+(14, '2025-01-26', NULL, 14, 20),
+(15, '2025-01-27', NULL, 15, 26),
+(16, '2025-01-30', NULL, 16, 27),
+(17, '2025-02-01', NULL, 17, 28),
+(18, '2025-01-30', NULL, 18, 29),
+(19, '2025-01-31', NULL, 19, 30),
+(20, '2025-01-27', NULL, 20, 31);
+
 -- --------------------------------------------------------
 
 --
@@ -78,7 +104,7 @@ INSERT INTO `paciente` (`id`, `dni`, `nombre`, `edad`) VALUES
 (9, NULL, 'Mateo Rivera Rodriguez', NULL),
 (10, NULL, 'Benjamin Galindo Manayay', NULL),
 (11, NULL, 'Fariol Saavedra Ramirez', NULL),
-(12, NULL, 'Msyte Bernabe Flores', NULL),
+(12, NULL, 'Mayte Bernabe Flores', NULL),
 (13, NULL, 'Luz Ferroñan Montalvan', NULL),
 (14, NULL, 'Diana Sanchez Finquin', NULL),
 (15, NULL, 'Aitana Diaz Quesquey', NULL),
@@ -131,11 +157,11 @@ CREATE TABLE `subservicios` (
 --
 
 INSERT INTO `subservicios` (`id`, `nombre`, `num_cama`, `estado`, `id_servicio`) VALUES
-(1, 'Lactantes', 'L-1', 'Desocupada', 1),
-(2, 'Lactantes', 'L-2', 'Desocupada', 1),
-(3, 'Lactantes', 'L-3', 'Desocupada', 1),
-(4, 'Lactantes', 'L-4', 'Desocupada', 1),
-(5, 'Lactantes', 'L-5', 'Desocupada', 1),
+(1, 'Lactantes', 'L-1', 'Ocupada', 1),
+(2, 'Lactantes', 'L-2', 'Ocupada', 1),
+(3, 'Lactantes', 'L-3', 'Ocupada', 1),
+(4, 'Lactantes', 'L-4', 'Ocupada', 1),
+(5, 'Lactantes', 'L-5', 'Ocupada', 1),
 (6, 'Lactantes', 'L-6', 'Desocupada', 1),
 (7, 'Lactantes', 'L-7', 'Desocupada', 1),
 (8, 'Lactantes', 'L-8', 'Desocupada', 1),
@@ -143,25 +169,25 @@ INSERT INTO `subservicios` (`id`, `nombre`, `num_cama`, `estado`, `id_servicio`)
 (10, 'Lactantes', 'L-10', 'Desocupada', 1),
 (11, 'Lactantes', 'L-11', 'Desocupada', 1),
 (12, 'Lactantes', 'L-12', 'Desocupada', 1),
-(13, 'Pre Escolares', 'PE-1', 'Desocupada', 1),
-(14, 'Pre Escolares', 'PE-2', 'Desocupada', 1),
-(15, 'Pre Escolares', 'PE-3', 'Desocupada', 1),
-(16, 'Pre Escolares', 'PE-4', 'Desocupada', 1),
-(17, 'Pre Escolares', 'PE-5', 'Desocupada', 1),
-(18, 'Pre Escolares', 'PE-6', 'Desocupada', 1),
-(19, 'Pre Escolares', 'PE-7', 'Desocupada', 1),
-(20, 'Pre Escolares', 'PE-8', 'Desocupada', 1),
+(13, 'Pre Escolares', 'PE-1', 'Ocupada', 1),
+(14, 'Pre Escolares', 'PE-2', 'Ocupada', 1),
+(15, 'Pre Escolares', 'PE-3', 'Ocupada', 1),
+(16, 'Pre Escolares', 'PE-4', 'Ocupada', 1),
+(17, 'Pre Escolares', 'PE-5', 'Ocupada', 1),
+(18, 'Pre Escolares', 'PE-6', 'Ocupada', 1),
+(19, 'Pre Escolares', 'PE-7', 'Ocupada', 1),
+(20, 'Pre Escolares', 'PE-8', 'Ocupada', 1),
 (21, 'Pre Escolares', 'PE-9', 'Desocupada', 1),
 (22, 'Pre Escolares', 'PE-10', 'Desocupada', 1),
 (23, 'Pre Escolares', 'PE-11', 'Desocupada', 1),
 (24, 'Pre Escolares', 'PE-12', 'Desocupada', 1),
 (25, 'Pre Escolares', 'PE-13', 'Desocupada', 1),
-(26, 'Neonatologia', 'N-1', 'Desocupada', 1),
-(27, 'Neonatologia', 'N-2', 'Desocupada', 1),
-(28, 'Neonatologia', 'N-3', 'Desocupada', 1),
-(29, 'Neonatologia', 'N-4', 'Desocupada', 1),
-(30, 'Neonatologia', 'N-5', 'Desocupada', 1),
-(31, 'Neonatologia', 'N-6', 'Desocupada', 1),
+(26, 'Neonatologia', 'N-1', 'Ocupada', 1),
+(27, 'Neonatologia', 'N-2', 'Ocupada', 1),
+(28, 'Neonatologia', 'N-3', 'Ocupada', 1),
+(29, 'Neonatologia', 'N-4', 'Ocupada', 1),
+(30, 'Neonatologia', 'N-5', 'Ocupada', 1),
+(31, 'Neonatologia', 'N-6', 'Ocupada', 1),
 (32, 'Neonatologia', 'N-7', 'Desocupada', 1),
 (33, 'Neonatologia', 'N-8', 'Desocupada', 1),
 (34, 'Neonatologia', 'N-9', 'Desocupada', 1),
@@ -422,7 +448,7 @@ ALTER TABLE `egresos`
 -- AUTO_INCREMENT de la tabla `ingresos`
 --
 ALTER TABLE `ingresos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `paciente`
