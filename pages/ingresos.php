@@ -183,6 +183,29 @@
         </div>
     </div>
 
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="card-title text-center mb-0">Generar Reporte de Ingresos por Fecha y Subservicio</h2>
+                    </div>
+                    <div class="card-body">
+                        <form action="../report/reporte_ingreso.php" method="get" class="row g-3">
+                            <div class="col-md-12">
+                                <label for="fecha_ingreso" class="form-label">Fecha de Ingreso</label>
+                                <input type="date" class="form-control" id="fecha_ingreso" name="fecha_ingreso" required>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-success btn-lg">Generar Reporte</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>>
+
     <footer class="bg-dark text-white text-center py-3 mt-5">
         <p>&copy; 2025 Censo Hospitalario. Todos los derechos reservado.</p>
     </footer>
