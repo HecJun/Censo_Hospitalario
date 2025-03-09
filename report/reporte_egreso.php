@@ -10,7 +10,7 @@
     // Consulta para obtener los egresos agrupados por subservicio
     $stmt = $conn->prepare("SELECT s.nombre AS nombre_subservicio, 
                                 COUNT(e.id) AS total_pacientes, 
-                                GROUP_CONCAT(CONCAT(p.nombre, ' - ', e.observacion)) AS detalles_pacientes
+                                GROUP_CONCAT(CONCAT(p.nombre)) AS detalles_pacientes
                             FROM egresos e
                             JOIN paciente p ON e.id_paciente = p.id
                             JOIN subservicios s ON e.id_subservicio = s.id
@@ -32,24 +32,25 @@
     $pdf->AddPage();
     $pdf->SetFont('Arial', 'B', 16);
 
-    // Título del reporte
-    $pdf->Cell(0, 10, 'Reporte de Egresos de Pacientes', 0, 1, 'C');
-    $pdf->Ln(10);
-
-    // Fecha del reporte
+    // Encabezado
+    $pdf->Image('../img/logo_hospital.png', 10, 10, 30); // Asegúrate de tener un logo en la ruta correcta
+    $pdf->Cell(0, 10, 'Hospital Regional Docente Las Mercedes', 0, 1, 'C');
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(0, 10, 'Fecha de Egreso: ' . $fecha_egreso, 0, 1);
-    $pdf->Ln(5);
+    $pdf->Cell(0, 10, 'Reporte de Ingresos de Pacientes', 0, 1, 'C');
+    $pdf->Cell(0, 10, 'Fecha de Ingreso: ' . $fecha_egreso, 0, 1, 'C');
+    $pdf->Ln(15);
 
-    // Total de egresos
-    $pdf->Cell(0, 10, 'Total de Egresos: ' . $total_egresos, 0, 1);
+    // Total de ingresos
+    $pdf->SetFont('Arial', 'B', 14);
+    $pdf->Cell(0, 10, 'Total de Ingresos: ' . $total_egresos, 0, 1, 'C');
     $pdf->Ln(10);
 
-    // Recorrer los egresos agrupados por subservicio
+    // Recorrer los ingresos agrupados por subservicio
     foreach ($egresos_por_subservicio as $subservicio) {
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(0, 10, 'Subservicio: ' . $subservicio['nombre_subservicio'], 0, 1);
-        $pdf->Cell(0, 10, 'Total de Pacientes: ' . $subservicio['total_pacientes'], 0, 1);
+        $pdf->SetFillColor(200, 220, 255); // Color de fondo para el subservicio
+        $pdf->Cell(0, 10, 'Subservicio: ' . $subservicio['nombre_subservicio'], 0, 1, 'L', true);
+        $pdf->Cell(0, 10, 'Total de Pacientes: ' . $subservicio['total_pacientes'], 0, 1, 'L');
         $pdf->Ln(5);
 
         // Detalles de los pacientes
@@ -60,6 +61,12 @@
         }
         $pdf->Ln(10); // Espacio entre subservicios
     }
+
+    // Pie de página
+    $pdf->SetY(-10);
+    $pdf->SetFont('Arial', 'I', 8);
+    $pdf->Cell(0, 10, 'Pagina ' . $pdf->PageNo(), 0, 0, 'C');
+    $pdf->Cell(0, 10, 'Hospital Regional Docente Las Mercedes', 0, 0, 'R');
 
     // Salida del PDF
     $pdf->Output('D', 'reporte_egresos_' . $fecha_egreso . '.pdf');

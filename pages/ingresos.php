@@ -53,6 +53,26 @@
 
         <!-- Formulario para agregar ingresos -->
         <div class="form-container-ingreso-egreso">
+
+            <?php
+            include '../includes/db.php';
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $fecha_ingreso = $_POST['fecha_ingreso'];
+                $observacion = !empty($_POST['observacion']) ? $_POST['observacion'] : NULL;
+                $id_paciente = $_POST['id_paciente'];
+                $id_subservicio = $_POST['id_subservicio'];
+
+                $stmt = $conn->prepare("INSERT INTO ingresos (fecha_ingreso, observacion, id_paciente, id_subservicio) VALUES (?, ?, ?, ?)");
+                $stmt->execute([$fecha_ingreso, $observacion, $id_paciente, $id_subservicio]);
+
+                $stmt = $conn->prepare("UPDATE subservicios SET estado = 'Ocupada' WHERE id = ?");
+                $stmt->execute([$id_subservicio]);
+
+                header('Location: ' . $_SERVER['PHP_SELF']);
+                exit();
+            } 
+            ?>
+
             <form method="post" class="row g-3">
                 <div class="col-md-6">
                     <label for="fecha_ingreso" class="form-label">Fecha de Ingreso</label>
@@ -102,23 +122,6 @@
         <!-- Tabla para mostrar ingresos -->
         <div class="table-container">
             <?php
-            include '../includes/db.php';
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $fecha_ingreso = $_POST['fecha_ingreso'];
-                $observacion = !empty($_POST['observacion']) ? $_POST['observacion'] : NULL;
-                $id_paciente = $_POST['id_paciente'];
-                $id_subservicio = $_POST['id_subservicio'];
-
-                $stmt = $conn->prepare("INSERT INTO ingresos (fecha_ingreso, observacion, id_paciente, id_subservicio) VALUES (?, ?, ?, ?)");
-                $stmt->execute([$fecha_ingreso, $observacion, $id_paciente, $id_subservicio]);
-
-                $stmt = $conn->prepare("UPDATE subservicios SET estado = 'Ocupada' WHERE id = ?");
-                $stmt->execute([$id_subservicio]);
-
-                header('Location: ' . $_SERVER['PHP_SELF']);
-                exit();
-            }
-
             $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
             $perPage = 8;
             $offset = ($page - 1) * $perPage;
