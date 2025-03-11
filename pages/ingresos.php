@@ -163,22 +163,51 @@
                 echo "</tbody></table>";
 
                 // Paginación
-                $totalRows = $conn->query("SELECT COUNT(*) FROM ingresos")->fetchColumn();
-                $totalPages = ceil($totalRows / $perPage);
+                    $totalRows = $conn->query("SELECT COUNT(*) FROM ingresos")->fetchColumn();
+                    $totalPages = ceil($totalRows / $perPage);
 
-                echo "<nav aria-label='Page navigation'>
-                        <ul class='pagination justify-content-center'>";
-                if ($page > 1) {
-                    echo "<li class='page-item'><a class='page-link' href='?page=" . ($page - 1) . "'>Anterior</a></li>";
-                }
-                for ($i = 1; $i <= $totalPages; $i++) {
-                    $active = ($page == $i) ? 'active' : '';
-                    echo "<li class='page-item $active'><a class='page-link' href='?page=$i'>$i</a></li>";
-                }
-                if ($page < $totalPages) {
-                    echo "<li class='page-item'><a class='page-link' href='?page=" . ($page + 1) . "'>Siguiente</a></li>";
-                }
-                echo "</ul></nav>";
+                    // Número de páginas a mostrar alrededor de la página actual
+                    $pagesToShow = 10;
+
+                    echo "<nav aria-label='Page navigation'>
+                            <ul class='pagination justify-content-center'>";
+
+                    // Botón "Anterior"
+                    if ($page > 1) {
+                        echo "<li class='page-item'><a class='page-link' href='?page=" . ($page - 1) . "'>Anterior</a></li>";
+                    }
+
+                    // Mostrar la primera página
+                    if ($page > $pagesToShow) {
+                        echo "<li class='page-item'><a class='page-link' href='?page=1'>1</a></li>";
+                        if ($page > $pagesToShow + 1) {
+                            echo "<li class='page-item disabled'><span class='page-link'>...</span></li>";
+                        }
+                    }
+
+                    // Mostrar las páginas alrededor de la página actual
+                    $startPage = max(1, $page - $pagesToShow);
+                    $endPage = min($totalPages, $page + $pagesToShow);
+
+                    for ($i = $startPage; $i <= $endPage; $i++) {
+                        $active = ($page == $i) ? 'active' : '';
+                        echo "<li class='page-item $active'><a class='page-link' href='?page=$i'>$i</a></li>";
+                    }
+
+                    // Mostrar la última página
+                    if ($page < $totalPages - $pagesToShow) {
+                        if ($page < $totalPages - $pagesToShow - 1) {
+                            echo "<li class='page-item disabled'><span class='page-link'>...</span></li>";
+                        }
+                        echo "<li class='page-item'><a class='page-link' href='?page=$totalPages'>$totalPages</a></li>";
+                    }
+
+                    // Botón "Siguiente"
+                    if ($page < $totalPages) {
+                        echo "<li class='page-item'><a class='page-link' href='?page=" . ($page + 1) . "'>Siguiente</a></li>";
+                    }
+
+                    echo "</ul></nav>";
             } else {
                 echo "<div class='alert alert-info'>No hay ingresos registrados.</div>";
             }

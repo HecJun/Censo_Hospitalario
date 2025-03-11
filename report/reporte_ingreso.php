@@ -63,7 +63,7 @@
     }
 
     // Pie de página
-    $pdf->SetY(-10);
+    $pdf->SetY(-15);
     $pdf->SetFont('Arial', 'I', 8);
     $pdf->Cell(0, 10, 'Pagina ' . $pdf->PageNo(), 0, 0, 'C');
     $pdf->Cell(0, 10, 'Hospital Regional Docente Las Mercedes', 0, 0, 'R');
