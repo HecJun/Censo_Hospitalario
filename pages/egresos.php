@@ -218,9 +218,10 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card shadow">
+                <!-- Primer Reporte: Egresos por Fecha -->
+                <div class="card shadow mb-4">
                     <div class="card-header bg-primary text-white">
-                        <h2 class="card-title text-center mb-0">Generar Reporte de Egresos por Fecha y Subservicio</h2>
+                        <h2 class="card-title text-center mb-0">Reporte de Egresos por Fecha</h2>
                     </div>
                     <div class="card-body">
                         <form action="../report/reporte_egreso.php" method="get" class="row g-3">
@@ -230,6 +231,28 @@
                             </div>
                             <div class="col-12 text-center">
                                 <button type="submit" class="btn btn-success btn-lg">Generar Reporte</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Segundo Reporte: Reporte de camas por Rango de Fechas -->
+                <div class="card shadow">
+                    <div class="card-header bg-secondary text-white">
+                        <h2 class="card-title text-center mb-0">Reporte de Camas por Rango de Fechas</h2>
+                    </div>
+                    <div class="card-body">
+                        <form action="../report/reporte_camas.php" method="post" class="row g-3">
+                            <div class="col-md-6">
+                                <label for="fecha_inicio" class="form-label">Fecha de Inicio</label>
+                                <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fecha_fin" class="form-label">Fecha de Fin</label>
+                                <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" required>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-warning btn-lg">Generar Reporte</button>
                             </div>
                         </form>
                     </div>
