@@ -239,10 +239,10 @@
                 <!-- Segundo Reporte: Reporte de camas por Rango de Fechas -->
                 <div class="card shadow">
                     <div class="card-header bg-secondary text-white">
-                        <h2 class="card-title text-center mb-0">Reporte de Camas por Rango de Fechas</h2>
+                        <h2 class="card-title text-center mb-0">Reporte de Indicadores Hospitalarios</h2>
                     </div>
                     <div class="card-body">
-                        <form action="../report/reporte_camas.php" method="post" class="row g-3">
+                        <form action="../report/reporte_indicadores.php" method="post" class="row g-3">
                             <div class="col-md-6">
                                 <label for="fecha_inicio" class="form-label">Fecha de Inicio</label>
                                 <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>

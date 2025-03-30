@@ -18,7 +18,26 @@
             WHERE (i.fecha_ingreso BETWEEN '$fecha_inicio' AND '$fecha_fin' 
                     OR e.fecha_egreso BETWEEN '$fecha_inicio' AND '$fecha_fin') 
             GROUP BY ss.nombre";
-    $result = $conn->query($sql);
+
+
+    // Consulta SQL corregida con límite de camas totales
+    $sql1 = "SELECT ss.nombre AS subservicio, 
+            COUNT(CASE WHEN ss.estado = 'Ocupada' THEN 1 END) AS camas_ocupadas, 
+            COUNT(CASE WHEN ss.estado = 'Desocupada' THEN 1 END) AS camas_desocupadas,
+            246 AS camas_totales
+            FROM subservicios ss 
+            WHERE ss.id IN (
+                SELECT DISTINCT id_subservicio 
+                FROM ingresos 
+                WHERE fecha_ingreso BETWEEN '$fecha_inicio' AND '$fecha_fin'
+                UNION
+                SELECT DISTINCT id_subservicio 
+                FROM egresos 
+                WHERE fecha_egreso BETWEEN '$fecha_inicio' AND '$fecha_fin'
+            )
+            GROUP BY ss.nombre";
+
+    $result = $conn->query($sql1);
 
     // Crear PDF
     $pdf = new FPDF();
@@ -50,10 +69,10 @@
     }
 
     // Pie de página
-    $pdf->SetY(-15);
+    $pdf->SetY(-30.1);
     $pdf->SetFont('Arial', 'I', 8);
     $pdf->Cell(0, 10, 'Pagina ' . $pdf->PageNo(), 0, 0, 'C');
     $pdf->Cell(0, 10, 'Hospital Regional Docente Las Mercedes', 0, 0, 'R');
 
-    $pdf->Output();
+    $pdf->Output('D', 'reporte_camas_' . $fecha_inicio . '_' . $fecha_fin . '.pdf');
 ?>

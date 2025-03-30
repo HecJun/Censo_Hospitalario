@@ -1,7 +1,7 @@
 <?php
 // includes/db.php
 $host = 'localhost';
-$dbname = 'bd_censohosp';
+$dbname = 'bd_censo';
 $username = 'root';
 $password = '';
 

@@ -60,3 +60,15 @@ VALUES
 
 DELETE FROM subservicios WHERE id > 40  -------> Eliminar datos
 UPDATE subservicios SET id_servicio = 2 WHERE nombre = 'Aro A' ----> Actulizar datos
+
+----- REPORTES CAMAS ------
+
+SELECT ss.nombre AS subservicio, 
+            COUNT(CASE WHEN ss.estado = 'Ocupada' THEN 1 END) AS camas_ocupadas, 
+            COUNT(CASE WHEN ss.estado = 'Desocupada' THEN 1 END) AS camas_desocupadas 
+            FROM subservicios ss 
+            LEFT JOIN ingresos i ON ss.id = i.id_subservicio 
+            LEFT JOIN egresos e ON ss.id = e.id_subservicio 
+            WHERE (i.fecha_ingreso BETWEEN '$fecha_inicio' AND '$fecha_fin' 
+                    OR e.fecha_egreso BETWEEN '$fecha_inicio' AND '$fecha_fin') 
+            GROUP BY ss.nombre
